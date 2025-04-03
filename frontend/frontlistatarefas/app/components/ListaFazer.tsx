@@ -13,7 +13,7 @@ export default function Listarfazer() {
     const [feitas, setFeitas] = useState<Tarefas[]>([]);
     const [total,setTotal] = useState<Tarefas[]>([]);
 
-  useEffect(() => {
+  useEffect(() => {/*não tirar esse uaseefect quebra tudo */
     
     getData([afazer, setAfazer],"listafazer");
     getData([cfazendo, setCfazendo],"listafazendo");
