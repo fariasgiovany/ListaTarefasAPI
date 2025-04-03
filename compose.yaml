@@ -10,8 +10,10 @@ services:
     ports: 
       - 5432:5432 
   
+  back:
+    image: listaback
+    ports:
+    - 8000:8000
   
- 
- 
 volumes:
   pgdata:
