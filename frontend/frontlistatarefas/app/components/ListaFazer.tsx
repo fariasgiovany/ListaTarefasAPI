@@ -5,7 +5,7 @@ import { Tarefas } from '../Tipos';
 
 
 export default function Listarfazer() {
-
+    
     const [afazer, setAfazer] = useState<Tarefas[]>([]);
     const [cfazendo, setCfazendo] = useState<Tarefas[]>([]);
     const [feitas, setFeitas] = useState<Tarefas[]>([]);

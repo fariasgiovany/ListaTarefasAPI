@@ -14,6 +14,11 @@ services:
     image: listaback
     ports:
     - 8000:8000
+
+  front:
+    image: frontlistatarefas
+    ports:
+    - 3000:3000
   
 volumes:
   pgdata:
