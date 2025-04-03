@@ -2,8 +2,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { Tarefas } from '../Tipos';
-import { stringify } from 'querystring';
-import { json } from 'stream/consumers';
+
 
 
 export default function Listarfazer() {
@@ -15,13 +14,13 @@ export default function Listarfazer() {
 
   useEffect(() => {/*não tirar esse uaseefect quebra tudo */
     
-    getData([afazer, setAfazer],"listafazer");
-    getData([cfazendo, setCfazendo],"listafazendo");
-    getData([feitas, setFeitas],"listafeito");
-    getData([total, setTotal],"lista");
+    GetData([afazer, setAfazer],"listafazer");
+    GetData([cfazendo, setCfazendo],"listafazendo");
+    GetData([feitas, setFeitas],"listafeito");
+    GetData([total, setTotal],"lista");
   
   }, []);
-  async function enviadados([uso, setUso] = useState<Tarefas[]>([]),id: number, destino:number) {
+  async function Enviadados([uso, setUso] = useState<Tarefas[]>([]),id: number, destino:number) {
     Alterarestado([uso, setUso],id, destino);
     if (destino === 0) {   
       const updatedPosts = uso.filter((post) => post.id !== id);
@@ -50,7 +49,7 @@ export default function Listarfazer() {
     }
     
   }
-  async function adicionartarefa([posts, setPosts] = useState<Tarefas[]>([]),tarefa: string){
+  async function Adicionartarefa([posts, setPosts] = useState<Tarefas[]>([]),tarefa: string){
     const content= JSON.stringify({ lista: tarefa, status: 0 });
     const response = await fetch(`http://192.168.0.3:8000/lista/`, {
       method: 'POST',
@@ -74,7 +73,7 @@ export default function Listarfazer() {
         <input type="text" id="taskInput" placeholder="escreva a nova tarefa" />
         <button onClick={() => {
           const inputElement = document.getElementById('taskInput') as HTMLInputElement;
-          if (inputElement) adicionartarefa([afazer,setAfazer],inputElement.value);
+          if (inputElement) Adicionartarefa([afazer,setAfazer],inputElement.value);
         }}>adicionar tarefa</button>
       </div>
       <table border={5}>
@@ -89,7 +88,7 @@ export default function Listarfazer() {
             <tr key={posts.id}>
               <td className='pr-20'>{posts.tarefa}</td>
               <td>
-                <button onClick={() => enviadados([afazer,setAfazer],posts.id,1)}>Fazendo</button>
+                <button onClick={() => Enviadados([afazer,setAfazer],posts.id,1)}>Fazendo</button>
               </td>
             </tr>
           ))}
@@ -108,7 +107,7 @@ export default function Listarfazer() {
             <tr key={posts.id}>
               <td className='pr-20'>{posts.tarefa}</td>
               <td>
-                <button onClick={() => enviadados([cfazendo, setCfazendo],posts.id,2)}>Feitos</button>
+                <button onClick={() => Enviadados([cfazendo, setCfazendo],posts.id,2)}>Feitos</button>
               </td>
             </tr>
           ))}
@@ -127,7 +126,7 @@ export default function Listarfazer() {
             <tr key={posts.id}>
               <td className='pr-20'>{posts.tarefa}</td>
               <td>
-                <button onClick={() => enviadados([feitas, setFeitas],posts.id,0)}>Feitos</button>
+                <button onClick={() => Enviadados([feitas, setFeitas],posts.id,0)}>Feitos</button>
               </td>
             </tr>
           ))}
@@ -142,7 +141,7 @@ export default function Listarfazer() {
 
 }
 
-export async function getData([afazer, setAfazer] = useState<Tarefas[]>([]),url:string) {
+export async function GetData([afazer, setAfazer] = useState<Tarefas[]>([]),url:string) {
   try {
   const response = await fetch('http://192.168.0.3:8000/'+url);
   const data = await response.json();
